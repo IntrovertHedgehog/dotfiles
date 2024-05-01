@@ -1,45 +1,61 @@
 # If you come from bash you might have to change your $PATH.
-source /etc/profile.d/gradle.sh
-export JAVA_HOME=/usr/lib/jvm/default-java
-export ANDROID_HOME=$HOME/Android/Sdk
-export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
-export PATH=$PATH:$HOME/softwares/android-studio-2021.2.1.15-linux/android-studio/bin
 export PATH=$PATH:/usr/local/texlive/2023/bin/x86_64-linux
-export PATH=$PATH:$HOME/softwares/ideaIU-2022.3.1/idea-IU-223.8214.52/bin
-export PATH=$PATH:$HOME/softwares/apache-maven-3.8.7/bin
-export PATH=$PATH:/usr/local/go/bin
-export PATH="$PATH:$HOME/local/share/JetBrains/Toolbox/scripts"
-export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}
+export PATH=$PATH:/opt/pulsesecure/bin
+# export PATH=$PATH:/opt/cuda/bin
 
 # CUDA
-export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+# export LD_LIBRARY_PATH=/opt/cuda/lib64:/opt/TensorRT-8.6.1.6/lib:${LD_LIBRARY_PATH}
+
+# java
+# export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre
+export JAVA_HOME=/usr/lib/jvm/default-runtime
+# docker rootless
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 # for nvm
 export NVM_DIR=~/.nvm
  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# android, react native
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # aliases
-alias adjbr="xrandr --output eDP --brightness 0.9 & xrandr --output HDMI-A-0 --brightness 0.8"
-alias setws="xrandr --output HDMI-A-0 --mode 1920x1080 --right-of eDP && polybar -r onedark-sec && adjbr"
+alias adjbr="xrandr --output eDP-1 --brightness 0.9 & xrandr --output HDMI-1 --brightness 0.8"
+alias setws="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 && adjbr && polybar -r onedark-sec & disown"
+alias clp="xclip -selection clipboard"
+alias sony="bluetoothctl connect 74:45:CE:CD:54:14"
+alias disony="bluetoothctl disconnect 74:45:CE:CD:54:14"
+alias lablestudio="docker run -it -p 8080:8080 -v ~/.local/share/label-studio/data heartexlabs/label-studio:latest"
+alias vpn="sudo openfortivpn webvpn.comp.nus.edu.sg --username=e0550397"
+alias caps="systemctl start mariadb && systemctl --user start docker && systemctl start nginx & docker run -p 800 0:8000 chromadb/chroma & disown"
+
+# get ip v4 and v6
+function gip {
+  echo $(curl ifconfig.me --no-progress-meter);
+  echo $(curl ipinfo.io/ip --no-progress-meter);
+}
 
 # quick directory cd-ing
 setopt cdablevars
-export dcom=$HOME/Documents/Study/computing/
-export decon=$HOME/Documents/Study/economics/
-export dmath=$HOME/Documents/Study/math/
+export dsci=$HOME/documents/study/data\ science/
+export dcom=$HOME/documents/study/computing/
+export decon=$HOME/documents/study/economics/
+export dmath=$HOME/documents/study/math/
 export anus=$HOME/apps/works/nus/
-export fyp=$HOME/apps/study/fyp
+export fyp=$HOME/apps/study/fyp/
+export capstone=$HOME/apps/study/pilot_for_pilot/
 
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="awesomepanda"
+# ZSH_THEME="awesomepanda"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -110,7 +126,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:$MANPATH"
+export INFOPATH="/usr/local/info:$INFOPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -136,28 +153,18 @@ source $ZSH/oh-my-zsh.sh
 setopt correct
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/softwares/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/softwares/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/softwares/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/softwares/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:$PATH
 
-# register autocomplete for pipx
-eval "$(register-python-argcomplete pipx)"
+alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:$PATH
-alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/opt/google/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/opt/google/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google/google-cloud-sdk/completion.zsh.inc'; fi
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh

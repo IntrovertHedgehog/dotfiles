@@ -63,9 +63,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/scripts/lock
 exec --no-startup-id nm-applet
 
 # background picture 
-exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/oliver_1920x1080.jpg
+exec_always --no-startup-id feh --bg-scale ~/pictures/wallpapers/oliver_1920x1080.jpg
 exec --no-startup-id ibus-daemon -rxR
-exec --no-startup-id picom
+exec --no-startup-id picom -I 1 -O 1 -b --config ~/.config/picom.conf
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -82,13 +82,13 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run -i -fn "JetBrainsMono-11"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -149,15 +149,15 @@ bindsym $mod+c focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: work"
-set $ws2 "2: docs"
+set $ws1 "1: main"
+set $ws2 "2: sec"
 set $ws3 "3: demo"
-set $ws4 "4"
+set $ws4 "4: notes"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8: config"
-set $ws9 "9: meeting"
+set $ws9 "9: aux"
 set $ws10 "10: play"
 
 # switch to workspace
@@ -258,22 +258,25 @@ hide_edge_borders both
 # no border when only 1 window, and no gap with screen edge
 smart_borders on
 # e.g. switched from ws1 -> ws2, press $mod+2 to go back to ws1
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 
 
 # mode to start applications
 mode "launcher" {
   bindsym f exec firefox; mode "default"
+  bindsym e exec dolphin; mode "default"
   bindsym o exec obsidian; mode "default"
-  bindsym c exec google-chrome; mode "default"
+  bindsym c exec google-chrome-stable; mode "default"
   bindsym t exec gnome-text-editor; mode "default"
   bindsym l exec matlab -desktop -sd /home/hedgehog/apps/study/matlab_project; mode "default"
   bindsym s exec studio; mode "default"
   bindsym i exec idea; mode "default"
   bindsym p exec pycharm; mode "default"
   bindsym r exec rstudio; mode "default"
-  bindsym q exec qutebrowser; mode "default"
-  bindsym m exec spotify; mode "default"
+  bindsym m exec spotify-launcher; mode "default"
+  bindsym d exec dataspell; mode "default"
+  bindsym g exec prime-run steam; mode "default"
+  bindsym q exec insomnia; mode "default"
 
   bindsym Escape mode "default"
   bindsym Return mode "default"
@@ -284,16 +287,19 @@ bindsym $mod+o mode "launcher"
 
 mode "multi-launcher" {
   bindsym f exec firefox
+  bindsym e exec dolphin
   bindsym o exec obsidian
-  bindsym c exec google-chrome
+  bindsym c exec google-chrome-stable
   bindsym t exec gnome-text-editor
   bindsym l exec matlab -desktop -sd /home/hedgehog/apps/study/matlab_project
   bindsym s exec studio
   bindsym i exec idea
   bindsym p exec pycharm
   bindsym r exec rstudio
-  bindsym q exec qutebrowser
-  bindsym m exec spotify
+  bindsym q exec insomnia
+  bindsym m exec spotify-launcher
+  bindsym d exec dataspell
+  bindsym g exec prime-run steam
 
   bindsym $mod+o mode "launcher"
   bindsym Escape mode "default"
@@ -310,7 +316,11 @@ bindsym $mod+minus scratchpad show
 
 # flame shot
 bindsym Print exec flameshot gui
-bindsym Shift+Print exec flameshot full --clipboard --path ~/Pictures/Screenshots
+bindsym Shift+Print exec flameshot full --clipboard --path ~/pictures/screenshots
+
+# suspend
+bindsym $mod+F1 exec systemctl suspend-then-hibernate
+bindsym $mod+Shift+F1 exec systemctl hibernate
 
 # don't shift focus on request, only mark urgent
 focus_on_window_activation urgent
@@ -329,4 +339,4 @@ focus_follows_mouse no
 # no mouse warp
 mouse_warping none
 # allocate screen
-exec_always xrandr --output HDMI-A-0 --mode 1920x1080 --right-of eDP
+exec_always xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1
