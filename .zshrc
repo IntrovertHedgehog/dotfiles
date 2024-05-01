@@ -24,7 +24,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export ZSH="$HOME/.oh-my-zsh"
 
 # aliases
-alias adjbr="xrandr --output eDP-1 --brightness 0.9 & xrandr --output HDMI-1 --brightness 0.8"
 alias setws="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 && adjbr && polybar -r onedark-sec & disown"
 alias clp="xclip -selection clipboard"
 alias sony="bluetoothctl connect 74:45:CE:CD:54:14"
@@ -32,11 +31,18 @@ alias disony="bluetoothctl disconnect 74:45:CE:CD:54:14"
 alias lablestudio="docker run -it -p 8080:8080 -v ~/.local/share/label-studio/data heartexlabs/label-studio:latest"
 alias vpn="sudo openfortivpn webvpn.comp.nus.edu.sg --username=e0550397"
 alias caps="systemctl start mariadb && systemctl --user start docker && systemctl start nginx & docker run -p 800 0:8000 chromadb/chroma & disown"
+alias config="git --git-dir=$HOME/.cfg --work-tree=$HOME"
 
 # get ip v4 and v6
 function gip {
   echo $(curl ifconfig.me --no-progress-meter);
   echo $(curl ipinfo.io/ip --no-progress-meter);
+}
+
+function adjbr {
+  local inp=${1=0.1}
+  local bri=$((1 - $inp))
+  xrandr --output eDP-1 --brightness ${bri} & xrandr --output HDMI-1 --brightness $((bri - 0.1))
 }
 
 # quick directory cd-ing
