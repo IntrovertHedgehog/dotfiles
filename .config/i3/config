@@ -40,11 +40,7 @@ client.background       $base07
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:JetBrainsMono Nerd Font 11
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-# font pango:DejaVu Sans Mono 8
+font pango:Hasklug Nerd Font 11
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -63,8 +59,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/scripts/lock.sh
 exec --no-startup-id nm-applet
 
 # background picture 
-exec_always --no-startup-id feh --bg-scale ~/pictures/wallpapers/mist.jpg
-# exec --no-startup-id ibus-daemon -rxR moved to xinit or some shit like that
+exec_always --no-startup-id feh --bg-scale ~/pictures/wallpapers/faris_odeh.png
+exec --no-startup-id ibus-daemon -rxR
 exec --no-startup-id picom -b --config ~/.config/picom.conf
 exec --no-startup-id clipmenud
 
@@ -91,7 +87,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -i -fn "JetBrainsMono-11"
+bindsym $mod+d exec --no-startup-id dmenu_run -i -fn "Terminess-11"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -258,8 +254,9 @@ exec_always --no-startup-id polybar -r onedark-pri
 default_border normal 1
 # hide border when next to screen edge
 hide_edge_borders both
-# no border when only 1 window, and no gap with screen edge
-smart_borders on
+## no border when only 1 window, and no gap with screen edge
+## deprecated
+# smart_borders on
 # e.g. switched from ws1 -> ws2, press $mod+2 to go back to ws1
 workspace_auto_back_and_forth no
 
@@ -283,7 +280,6 @@ mode "launcher" {
   bindsym q exec insomnia; mode "default"
 
   bindsym $mod+Shift+o mode "multi-launcher"
-  bindsym $mod+period mode "vim-normal"
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
@@ -308,35 +304,11 @@ mode "multi-launcher" {
   bindsym g exec prime-run steam
 
   bindsym $mod+o mode "launcher"
-  bindsym $mod+period mode "vim-normal"
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
 
 bindsym $mod+Shift+o mode "multi-launcher"
-
-mode "vim-normal" {
-  bindsym --release j exec xdotool key Down
-  bindsym --release k exec xdotool key Up
-  bindsym --release h exec xdotool key Left
-  bindsym --release l exec xdotool key Right
-  bindsym --release b exec xdotool key ctrl+Left
-  bindsym --release w exec xdotool key ctrl+Right
-  bindsym --release Shift+asciicircum exec xdotool key --clearmodifiers KP_Home
-  bindsym --release Shift+dollar exec xdotool key --clearmodifiers KP_End
-  bindsym --release x exec xdotool key Delete
-  bindsym --release d exec xdotool key ctrl+Delete
-  bindsym --release Shift+D exec xdotool key --clearmodifiers ctrl+BackSpace
-
-  bindsym $mod+o mode "launcher"
-  bindsym $mod+o mode "multi-launcher"
-  bindsym Escape mode "default"
-  bindsym Return mode "default"
-  bindsym i mode "default"
-}
-
-bindsym $mod+period mode "vim-normal"
-
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -373,8 +345,8 @@ for_window [all] title_format "<b>%title</b>"
 focus_follows_mouse no
 # no mouse warp
 mouse_warping none
-# allocate screen
-exec_always xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1
+## allocate screen
+exec_always xrandr --output HDMI-A-0 --mode 1920x1080 --rate 120
 # notification receiver
 exec --no-startup-id /usr/bin/dunst
 # no focus wrapping

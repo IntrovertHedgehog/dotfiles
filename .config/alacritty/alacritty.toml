@@ -8,22 +8,22 @@ TERM = "xterm-256color"
 WINIT_X11_SCALE_FACTOR = "1"
 
 [font]
-size = 10.5
+size = 10
 
 [font.bold]
-family = "JetBrainsMono Nerd Font"
+family = "Hasklug Nerd Font Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font"
+family = "Hasklug Nerd Font Mono"
 style = "Bold Italic"
 
 [font.italic]
-family = "JetBrainsMono Nerd Font"
+family = "Hasklug Nerd Font Mono"
 style = "Italic"
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
+family = "Hasklug Nerd Font Mono"
 style = "Regular"
 
 [window]
