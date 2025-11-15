@@ -1,0 +1,23 @@
+keymap:
+  - name: emacs editing
+    exact_match: true
+    application:
+      not: [Alacritty.Alacritty, xterm]
+    remap:
+      alt_l-f: c-right
+      alt_l-b: c-left
+      ctrl_l-f: right
+      ctrl_l-b: left
+      ctrl_l-a: home
+      ctrl_l-e: end
+      ctrl_l-n: down
+      ctrl_l-p: up
+      ctrl_l-w: ctrl-backspace
+      ctrl_l-u: [shift-home, delete]
+      ctrl_l-y: [shift-home, ctrl-c]
+  - name: ctrl-w replacement for firefox
+    exact_match: true
+    application: 
+      only: [Navigator.firefox]
+    remap:
+      alt_l-x: ctrl-w
