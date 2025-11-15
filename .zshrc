@@ -1,24 +1,34 @@
+# zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 export PATH=$PATH:/usr/local/texlive/2023/bin/x86_64-linux
 export PATH=$PATH:/opt/pulsesecure/bin
-# export PATH=$PATH:/opt/cuda/bin
+export PATH=$PATH:~/.local/share/coursier/bin
 
 # CUDA
 # export LD_LIBRARY_PATH=/opt/cuda/lib64:/opt/TensorRT-8.6.1.6/lib:${LD_LIBRARY_PATH}
 
 # java
-# export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre
-export JAVA_HOME=/usr/lib/jvm/default-runtime
+export JAVA_HOME=/usr/lib/jvm/default
 # docker rootless
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
 # for nvm
-export NVM_DIR=~/.nvm
- [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# export NVM_DIR=~/.nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # android, react native
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# vcpkg
+export VCPKG_ROOT=~/.local/share/vcpkg
+export PATH=$VCPKG_ROOT:$PATH
+
+# ruby
+export GEM_HOME="$(gem env user_gemhome)"
+export PATH="$PATH:$GEM_HOME/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -26,12 +36,44 @@ export ZSH="$HOME/.oh-my-zsh"
 # aliases
 alias setws="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 && adjbr && polybar -r onedark-sec & disown"
 alias clp="xclip -selection clipboard"
-alias sony="bluetoothctl connect 74:45:CE:CD:54:14"
-alias disony="bluetoothctl disconnect 74:45:CE:CD:54:14"
 alias lablestudio="docker run -it -p 8080:8080 -v ~/.local/share/label-studio/data heartexlabs/label-studio:latest"
-alias vpn="sudo openfortivpn webvpn.comp.nus.edu.sg --username=e0550397"
+alias vpn="sudo openfortivpn webvpn.comp.nus.edu.sg --username=lvanminh"
 alias caps="systemctl start mariadb && systemctl --user start docker && systemctl start nginx & docker run -p 800 0:8000 chromadb/chroma & disown"
 alias config="git --git-dir=$HOME/.cfg --work-tree=$HOME"
+alias run-zabbix="systemctl start zabbix-server-mysql.service zabbix-agent.service php-fpm.service"
+alias ehist='eval $(history | fzf | sed -E -e "s/^ *[0-9]+ *//")'
+alias chist='history | fzf | sed -E -e "s/^ *[0-9]+ *//" | clp'
+alias noscrsv="xset s off -dpms"
+
+function sony {
+  DIS=0
+
+  for opt in "$@"
+  do
+    case "$opt" in
+      "-d") DIS=1
+        shift 1
+      ;;
+    esac
+  done
+  
+  NUM=${1:-0}
+  case "$NUM" in
+    0) MAC_ADDR="74:45:CE:CD:54:14"
+    ;;
+    1) MAC_ADDR="E8:9E:13:7C:F8:33"
+    ;;
+    *) echo "this device is not registered"
+      return 1
+    ;;
+  esac
+
+  if [ "$DIS" = 0 ]; then
+    bluetoothctl connect $MAC_ADDR && bluetoothctl trust $MAC_ADDR
+  else
+    bluetoothctl disconnect $MAC_ADDR
+  fi
+}
 
 # get ip v4 and v6
 function gip {
@@ -47,13 +89,11 @@ function adjbr {
 
 # quick directory cd-ing
 setopt cdablevars
-export dsci=$HOME/documents/study/data\ science/
 export dcom=$HOME/documents/study/computing/
 export decon=$HOME/documents/study/economics/
-export dmath=$HOME/documents/study/math/
 export anus=$HOME/apps/works/nus/
-export fyp=$HOME/apps/study/fyp/
-export capstone=$HOME/apps/study/pilot_for_pilot/
+export side=$HOME/apps/side/
+export resume=$HOME/documents/works/general_docs/
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -157,7 +197,6 @@ export INFOPATH="/usr/local/info:$INFOPATH"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 setopt correct
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:$PATH
 
@@ -167,10 +206,32 @@ alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/hedgehog/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/hedgehog/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/hedgehog/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/hedgehog/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/opt/google/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/opt/google/google-cloud/path.zsh.inc' ]; then . '/opt/google/google-cloud/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/opt/google/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google/google-cloud-sdk/completion.zsh.inc'; fi
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+if [ -f '/opt/google/google-cloud/completion.zsh.inc' ]; then . '/opt/google/google-cloud/completion.zsh.inc'; fi
+
+# binding history key
+# ESC is equivalent to mod1 (alt)
+bindkey "^[k" up-line-or-beginning-search
+bindkey "^[j" down-line-or-beginning-search
+
+# zprof

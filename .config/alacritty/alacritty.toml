@@ -1,9 +1,14 @@
+[general]
+# import = [
+# "~/.config/alacritty/themes/themes/smoooooth.toml"
+# ]
+
 [env]
 TERM = "xterm-256color"
 WINIT_X11_SCALE_FACTOR = "1"
 
 [font]
-size = 13
+size = 10.5
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -20,3 +25,6 @@ style = "Italic"
 [font.normal]
 family = "JetBrainsMono Nerd Font"
 style = "Regular"
+
+[window]
+padding = {x = 0, y = 0}
