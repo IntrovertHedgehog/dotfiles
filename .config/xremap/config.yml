@@ -1,8 +1,9 @@
+# wmctrl -x -l
 keymap:
   - name: emacs editing
     exact_match: true
     application:
-      not: [Alacritty.Alacritty, xterm]
+      not: [Alacritty.Alacritty, xterm, obsidian.obsidian]
     remap:
       alt_l-f: c-right
       alt_l-b: c-left

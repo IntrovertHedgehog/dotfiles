@@ -154,6 +154,7 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
+
 		keys = { "<A-i>" },
 		opts = function()
 			return require "plugins.toggleterm"
