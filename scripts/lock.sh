@@ -43,10 +43,10 @@ i3lock \
 --wrong-text="!" \
 --noinput-text="??" \
 --lock-text="" \
---time-font="JetBrainsMono Nerd Font" \
---date-font="JetBrainsMono Nerd Font" \
---verif-font="JetBrainsMono Nerd Font" \
---wrong-font="JetBrainsMono Nerd Font" \
---layout-font="JetBrainsMono Nerd Font" \
---greeter-font="JetBrainsMono Nerd Font" \
+--time-font="Terminess Nerd Font" \
+--date-font="Terminess Nerd Font" \
+--verif-font="Terminess Nerd Font" \
+--wrong-font="Terminess Nerd Font" \
+--layout-font="Terminess Nerd Font" \
+--greeter-font="Terminess Nerd Font" \
 --keylayout 1 \

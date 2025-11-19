@@ -11,19 +11,19 @@ WINIT_X11_SCALE_FACTOR = "1"
 size = 10
 
 [font.bold]
-family = "Hasklug Nerd Font Mono"
+family = "Hasklug Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "Hasklug Nerd Font Mono"
+family = "Hasklug Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "Hasklug Nerd Font Mono"
+family = "Hasklug Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "Hasklug Nerd Font Mono"
+family = "Hasklug Nerd Font"
 style = "Regular"
 
 [window]
