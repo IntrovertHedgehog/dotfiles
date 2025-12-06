@@ -5,14 +5,14 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = "\\"
 
+-- ui
 o.laststatus = 3
-
 o.showmode = false
 o.splitkeep = "screen"
-
 o.clipboard = "unnamedplus"
 o.cursorline = true
 o.cursorlineopt = "number"
+o.winborder = "rounded"
 
 -- Indenting
 o.expandtab = false

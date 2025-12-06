@@ -1,20 +1,53 @@
 return {
+	-- 	{
+	-- 		"christoomey/vim-tmux-navigator",
+	-- 		cmd = {
+	-- 			"TmuxNavigateLeft",
+	-- 			"TmuxNavigateDown",
+	-- 			"TmuxNavigateUp",
+	-- 			"TmuxNavigateRight",
+	-- 			"TmuxNavigatePrevious",
+	-- 			"TmuxNavigatorProcessList",
+	-- 		},
+	-- 		keys = {
+	-- 			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>", mode = { "n", "c", "t" } },
+	-- 			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>", mode = { "n", "c", "t" } },
+	-- 			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>", mode = { "n", "c", "t" } },
+	-- 			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>", mode = { "n", "c", "t" } },
+	-- 			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>", mode = { "n", "c", "t" } },
+	-- 		},
+	-- 	},
 	{
-		"christoomey/vim-tmux-navigator",
-		cmd = {
-			"TmuxNavigateLeft",
-			"TmuxNavigateDown",
-			"TmuxNavigateUp",
-			"TmuxNavigateRight",
-			"TmuxNavigatePrevious",
-			"TmuxNavigatorProcessList",
-		},
+		"alexghergh/nvim-tmux-navigation",
 		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+			{
+				"<C-h>",
+				function()
+					require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
+				end,
+				mode = { "n", "c", "t" },
+			},
+			{
+				"<C-j>",
+				function()
+					require("nvim-tmux-navigation").NvimTmuxNavigateDown()
+				end,
+				mode = { "n", "c", "t" },
+			},
+			{
+				"<C-k>",
+				function()
+					require("nvim-tmux-navigation").NvimTmuxNavigateUp()
+				end,
+				mode = { "n", "c", "t" },
+			},
+			{
+				"<C-l>",
+				function()
+					require("nvim-tmux-navigation").NvimTmuxNavigateRight()
+				end,
+				mode = { "n", "c", "t" },
+			},
 		},
 	},
 	{
@@ -61,7 +94,7 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
-		cmd = { "Format" },
+		cmd = { "Format", "ConformInfo" },
 		opts = function()
 			return require "plugins.conform"
 		end,
@@ -255,9 +288,13 @@ return {
 		priority = 1000,
 		opts = {},
 	},
+	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000, opts = {} },
+	{ "scottmckendry/cyberdream.nvim", lazy = false, priority = 1000, opts = {} },
 	{
 		"hedyhli/outline.nvim",
-		cmd = {"OutlineOpen"},
-		opts = {}
+		cmd = { "OutlineOpen" },
+		opts = function()
+			return require "plugins.outline"
+		end,
 	},
 }

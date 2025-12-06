@@ -29,5 +29,12 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
+vim.lsp.config("asm-lsp", {
+	cmd = { "asm-lsp" },
+	filetypes = { "asm", "vmasm" },
+	root_markers = { ".asm-lsp.toml", ".git" },
+})
+
 vim.lsp.enable "lua_ls"
--- vim.lsp.enable("stylua")
+vim.lsp.enable "clangd"
+vim.lsp.enable "asm-lsp"

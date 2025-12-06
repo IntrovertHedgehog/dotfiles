@@ -3,6 +3,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export EDITOR="nvim"
+
 # aliases
 alias setws="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 && adjbr && polybar -r onedark-sec & disown"
 alias clp="xclip -selection clipboard"
@@ -51,16 +53,12 @@ function adjbr {
   local inp=${1=0.1}
   local bri=$((1 - $inp))
   # xrandr --output eDP-1 --brightness ${bri} & xrandr --output HDMI-1 --brightness $((bri - 0.1))
-  xrandr --output HDMI-A-0 --brightness ${bri}
+  xrandr --output DisplayPort-0 --brightness ${bri}
 }
 
 # quick directory cd-ing
 setopt cdablevars
-export dcom=$HOME/documents/study/computing/
-export decon=$HOME/documents/study/economics/
-export side=$HOME/apps/side/
-export resume=$HOME/documents/works/general_docs/
-
+export o=$HOME/docs/ostep
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

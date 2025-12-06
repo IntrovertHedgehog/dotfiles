@@ -4,7 +4,13 @@ map("n", "<esc>", "<cmd>nohl<CR>", { desc = "no highlight" })
 map({ "v", "n" }, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
 map({ "v", "n" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 map("t", "<esc>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
 
+-- insert nav
+map( "i" , "<C-l>", "<Right>", { desc = "right" })
+map( "i" , "<C-h>", "<Left>", { desc = "left" })
+map( "i" , "<C-j>", "<Down>", { desc = "down" })
+map( "i" , "<C-k>", "<Up>", { desc = "up" })
 -- emacs
 map({ "i", "c" }, "<A-f>", "<C-Right>", { desc = "word next" })
 map({ "i", "c" }, "<A-b>", "<C-Left>", { desc = "word back" })
@@ -81,7 +87,7 @@ map("n", "gr", function()
 end, { desc = "LSP references" })
 
 map("n", "<leader>lf", function()
-	vim.diagnostic.open_float { border = "rounded" }
+	vim.diagnostic.open_float()
 end, { desc = "Floating diagnostic" })
 
 map("n", "<leader>lr", function()
@@ -121,13 +127,12 @@ map("n", "<leader>wl", function()
 end, { desc = "List workspace folders" })
 
 map("n", "<leader>o", function()
-	local outline = require("outline")
+	local outline = require "outline"
 	if outline.is_open() then
-		vim.cmd[[OutlineFocus]]
+		vim.cmd [[OutlineFocus]]
 	else
-		vim.cmd[[OutlineOpen]]
+		vim.cmd [[OutlineOpen]]
 	end
-
 end, { desc = "Toggle Outline" })
 
 -- harpoon

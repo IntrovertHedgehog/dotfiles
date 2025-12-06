@@ -87,7 +87,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -i -fn "Terminess-11"
+bindsym $mod+d exec --no-startup-id dmenu_run -i -fn "Terminess Nerd Font-14"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -276,7 +276,7 @@ mode "launcher" {
   bindsym r exec rstudio; mode "default"
   bindsym m exec spotify-launcher; mode "default"
   bindsym d exec dataspell; mode "default"
-  bindsym g exec prime-run steam; mode "default"
+  bindsym g exec steam; mode "default"
   bindsym q exec insomnia; mode "default"
 
   bindsym $mod+Shift+o mode "multi-launcher"
@@ -301,7 +301,7 @@ mode "multi-launcher" {
   bindsym q exec insomnia
   bindsym m exec spotify-launcher
   bindsym d exec dataspell
-  bindsym g exec prime-run steam
+  bindsym g exec steam
 
   bindsym $mod+o mode "launcher"
   bindsym Escape mode "default"
@@ -336,17 +336,19 @@ bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 # toggle touchpad
 bindsym $mod+comma exec synclient TouchpadOff=$((1 - $(synclient -l | grep TouchpadOff | awk '{print $3}')))
 # clipboard manager
-bindsym $mod+v exec clipmenu
+bindsym $mod+v exec CM_HISTLENGTH=12 clipmenu -i -fn "Terminess Nerd Font-13"
 # emacs typing mode for general use programs
 
 # bold the text of window title
 for_window [all] title_format "<b>%title</b>"
+# always use native window frame
+# for_window [all] border normal
 # don't focus on hover
 focus_follows_mouse no
 # no mouse warp
 mouse_warping none
 ## allocate screen
-exec_always xrandr --output HDMI-A-0 --mode 1920x1080 --rate 120
+exec_always xrandr --output DisplayPort-0 --mode 1920x1080 --rate 120
 # notification receiver
 exec --no-startup-id /usr/bin/dunst
 # no focus wrapping
