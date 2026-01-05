@@ -1,0 +1,15 @@
+**/*
+!.gitignore
+!.config/alacritty
+!.config/dunst
+!.config/flameshot
+!.config/i3
+!.config/nvim
+!.config/picom.conf
+!.config/polybar
+!.config/qutebrowser
+!.config/tmux
+!.config/xremap
+!.zshrc
+!pictures/wallpapers/oliver_1920x1080.jpg
+!scripts/lock.sh

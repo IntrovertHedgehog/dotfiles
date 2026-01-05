@@ -1,5 +1,5 @@
 return {
-	open_mapping = "<A-i>",
+	open_mapping = nil,
 	direction = "float",
 	float_opts = {
 		border = "curved"

@@ -28,4 +28,9 @@ require("lazy").setup {
 	checker = { enabled = false },
 }
 
-vim.cmd[[colorscheme retrobox]]
+local scheme_file = io.open(vim.fn.stdpath "data" .. "/colorscheme", "r")
+if scheme_file then
+	local scheme = scheme_file:read("*l")
+	scheme_file:close()
+	vim.cmd(string.format("colorscheme %s", scheme))
+end

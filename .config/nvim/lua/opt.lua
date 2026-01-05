@@ -55,7 +55,7 @@ g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
 -- misc
-opt.scrolloff = 5
+opt.scrolloff = 7
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.synmaxcol = 256

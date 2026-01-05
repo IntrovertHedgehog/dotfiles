@@ -31,6 +31,8 @@ function sony {
     ;;
     1) MAC_ADDR="E8:9E:13:7C:F8:33"
     ;;
+    2) MAC_ADDR="BC:17:3F:D6:14:34"
+    ;;
     *) echo "this device is not registered"
       return 1
     ;;

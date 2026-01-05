@@ -7,10 +7,11 @@ map("t", "<esc>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
 
 -- insert nav
-map( "i" , "<C-l>", "<Right>", { desc = "right" })
-map( "i" , "<C-h>", "<Left>", { desc = "left" })
-map( "i" , "<C-j>", "<Down>", { desc = "down" })
-map( "i" , "<C-k>", "<Up>", { desc = "up" })
+map("i", "<C-l>", "<Right>", { desc = "right" })
+map("i", "<C-h>", "<Left>", { desc = "left" })
+map("i", "<C-j>", "<Down>", { desc = "down" })
+map("i", "<C-k>", "<Up>", { desc = "up" })
+
 -- emacs
 map({ "i", "c" }, "<A-f>", "<C-Right>", { desc = "word next" })
 map({ "i", "c" }, "<A-b>", "<C-Left>", { desc = "word back" })
@@ -20,6 +21,21 @@ map({ "i", "c" }, "<C-a>", "<Home>", { desc = "start of line" })
 map({ "i", "c" }, "<C-e>", "<End>", { desc = "end of line" })
 map({ "i", "c" }, "<A-j>", "<Down>", { desc = "next hist cmd cxt aware" })
 map({ "i", "c" }, "<A-k>", "<Up>", { desc = "prev hist cmd cxt aware" })
+map({ "i", "c" }, "<C-k>", "<C-w>", { desc = "<C-BS> and <C-H> to kill word" })
+
+--tmux nav
+map({ "n" }, "<C-h>", function()
+	require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
+end, {})
+map({ "n" }, "<C-j>", function()
+	require("nvim-tmux-navigation").NvimTmuxNavigateDown()
+end, {})
+map({ "n" }, "<C-k>", function()
+	require("nvim-tmux-navigation").NvimTmuxNavigateUp()
+end, {})
+map({ "n" }, "<C-l>", function()
+	require("nvim-tmux-navigation").NvimTmuxNavigateRight()
+end, {})
 
 -- telescope
 map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "telescope find files" })
@@ -135,6 +151,18 @@ map("n", "<leader>o", function()
 	end
 end, { desc = "Toggle Outline" })
 
+-- trouble.nvim
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
+map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+map(
+	"n",
+	"<leader>cl",
+	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+	{ desc = "LSP Definitions / references / ... (Trouble)" }
+)
+map("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
+map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+
 -- harpoon
 map("n", "<leader>a", function()
 	require("harpoon"):list():add()
@@ -214,10 +242,10 @@ map({ "n", "v" }, "<Leader>dh", function()
 	require("dap.ui.widgets").hover()
 end, { desc = "" })
 
--- dap ui
-map("n", "<leader>do", function()
-	require("dapui").toggle()
-end)
+-- dap ui -> shipped to plugins/init cuz I'm lazy
+-- map("n", "<leader>do", function()
+-- 	require("dapui").toggle()
+-- end)
 
 -- list_breakpoints
 map("n", "<leader>db", function()
@@ -229,3 +257,43 @@ end, { desc = "set log point" })
 map("n", "<leader>dc", function()
 	require("persistent-breakpoints.api").clear_all_breakpoints()
 end, { desc = "clear breakpoints" })
+
+-- tab mgmnt
+map("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "new tab" })
+map("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "next tab" })
+map("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "prev tab" })
+map("n", "<leader>tx", "<cmd>tabclose<cr>", { desc = "close tab" })
+
+-- toggleterm
+map({ "n", "i", "t" }, "<A-h>", function()
+	return "<cmd>" .. vim.v.count .. "ToggleTerm direction=horizontal<CR>"
+end, { desc = "toggle horizontal term", expr = true })
+map({ "n", "i", "t" }, "<A-i>", function()
+	return "<cmd>" .. vim.v.count .. "ToggleTerm direction=float<CR>"
+end, { desc = "toggle float term", expr = true })
+
+-- utils
+map({"n", "i", "c"}, "<M-->", require("utils").toggle_float, {desc = "toggle float win"})
+
+-- lazy keys that requires definition
+local KEYS = {
+	["nvim-dap-ui"] = { {
+		"<leader>do",
+		function()
+			require("dapui").toggle()
+		end,
+	} },
+
+	["which-key.nvim"] = {
+		{
+			"<leader>?",
+			function()
+				require("which-key").show { global = false }
+			end,
+			desc = "Buffer Local Keymaps (which-key)",
+		},
+	},
+}
+
+return KEYS
+

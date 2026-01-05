@@ -68,6 +68,9 @@ exec --no-startup-id clipmenud
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s "+10%"
@@ -142,15 +145,15 @@ bindsym $mod+semicolon focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: ebx"
-set $ws2 "2: ecx"
-set $ws3 "3: edx"
-set $ws4 "4: esi"
-set $ws5 "5: edi"
-set $ws6 "6: esp"
-set $ws7 "7: ebp"
-set $ws8 "8: byte"
-set $ws9 "9: bad"
+set $ws1 "1: eip"
+set $ws2 "2: ebx"
+set $ws3 "3: ecx"
+set $ws4 "4: edx"
+set $ws5 "5: esi"
+set $ws6 "6: edi"
+set $ws7 "7: esp"
+set $ws8 "8: ebp"
+set $ws9 "9: flags"
 set $ws10 "10: eax"
 
 # switch to workspace
@@ -342,7 +345,7 @@ bindsym $mod+v exec CM_HISTLENGTH=12 clipmenu -i -fn "Terminess Nerd Font-13"
 # bold the text of window title
 for_window [all] title_format "<b>%title</b>"
 # always use native window frame
-# for_window [all] border normal
+for_window [class="steam"] border normal
 # don't focus on hover
 focus_follows_mouse no
 # no mouse warp

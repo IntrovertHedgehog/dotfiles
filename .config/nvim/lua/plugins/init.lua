@@ -1,54 +1,9 @@
+local KEYS = require "keymap"
+
 return {
-	-- 	{
-	-- 		"christoomey/vim-tmux-navigator",
-	-- 		cmd = {
-	-- 			"TmuxNavigateLeft",
-	-- 			"TmuxNavigateDown",
-	-- 			"TmuxNavigateUp",
-	-- 			"TmuxNavigateRight",
-	-- 			"TmuxNavigatePrevious",
-	-- 			"TmuxNavigatorProcessList",
-	-- 		},
-	-- 		keys = {
-	-- 			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>", mode = { "n", "c", "t" } },
-	-- 			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>", mode = { "n", "c", "t" } },
-	-- 			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>", mode = { "n", "c", "t" } },
-	-- 			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>", mode = { "n", "c", "t" } },
-	-- 			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>", mode = { "n", "c", "t" } },
-	-- 		},
-	-- 	},
 	{
 		"alexghergh/nvim-tmux-navigation",
-		keys = {
-			{
-				"<C-h>",
-				function()
-					require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
-				end,
-				mode = { "n", "c", "t" },
-			},
-			{
-				"<C-j>",
-				function()
-					require("nvim-tmux-navigation").NvimTmuxNavigateDown()
-				end,
-				mode = { "n", "c", "t" },
-			},
-			{
-				"<C-k>",
-				function()
-					require("nvim-tmux-navigation").NvimTmuxNavigateUp()
-				end,
-				mode = { "n", "c", "t" },
-			},
-			{
-				"<C-l>",
-				function()
-					require("nvim-tmux-navigation").NvimTmuxNavigateRight()
-				end,
-				mode = { "n", "c", "t" },
-			},
-		},
+		lazy = false,
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -82,15 +37,7 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		keys = {
-			{
-				"<leader>?",
-				function()
-					require("which-key").show { global = false }
-				end,
-				desc = "Buffer Local Keymaps (which-key)",
-			},
-		},
+		keys = KEYS["which-key.nvim"],
 	},
 	{
 		"stevearc/conform.nvim",
@@ -187,7 +134,7 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
-		keys = { "<A-i>" },
+		cmd = { "ToggleTerm" },
 		opts = function()
 			return require "plugins.toggleterm"
 		end,
@@ -234,19 +181,21 @@ return {
 	},
 	{
 		"lervag/vimtex",
-		lazy = false, -- VimTex is already lazy loaded mostly
+		ft = { "tex" },
 		config = function()
 			require "plugins.vimtex"()
 		end,
 	},
 	{
 		"mfussenegger/nvim-dap",
+		lazy = true,
 		config = function()
 			require "plugins.nvim-dap"
 		end,
 	},
 	{
 		"rcarriga/nvim-dap-ui",
+		keys = KEYS["nvim-dap-ui"],
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		config = function()
 			require "plugins.nvim-dap-ui"
@@ -254,6 +203,7 @@ return {
 	},
 	{
 		"Weissle/persistent-breakpoints.nvim",
+		lazy = true,
 		dependencies = { "mfussenegger/nvim-dap" },
 		opts = function()
 			return require "plugins.perf_breakpoints"
@@ -273,7 +223,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
-			options = { theme = "tokyonight" },
+			options = { theme = "auto" },
 		},
 	},
 	{
@@ -289,12 +239,21 @@ return {
 		opts = {},
 	},
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000, opts = {} },
-	{ "scottmckendry/cyberdream.nvim", lazy = false, priority = 1000, opts = {} },
+	{ "scottmckendry/cyberdream.nvim", lazy = false, priority = 1000, opts = { variant = "auto" } },
 	{
 		"hedyhli/outline.nvim",
 		cmd = { "OutlineOpen" },
 		opts = function()
 			return require "plugins.outline"
 		end,
+	},
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+	},
+	{
+		"RRethy/vim-illuminate",
+		lazy = false,
 	},
 }
