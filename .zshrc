@@ -40,6 +40,7 @@ function sony {
 
   if [ "$DIS" = 0 ]; then
     bluetoothctl connect $MAC_ADDR && bluetoothctl trust $MAC_ADDR
+	pactl set-default-sink "bluez_output.${MAC_ADDR}"
   else
     bluetoothctl disconnect $MAC_ADDR
   fi
