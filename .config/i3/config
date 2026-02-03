@@ -59,7 +59,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/scripts/lock.sh
 exec --no-startup-id nm-applet
 
 # background picture 
-exec_always --no-startup-id feh --bg-scale ~/pictures/wallpapers/faris_odeh.png
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/faris_odeh.png
 exec --no-startup-id ibus-daemon -rxR
 exec --no-startup-id picom -b --config ~/.config/picom.conf
 exec --no-startup-id clipmenud
@@ -320,7 +320,7 @@ bindsym $mod+minus scratchpad show
 
 # flame shot
 bindsym Print exec flameshot gui
-bindsym Shift+Print exec flameshot full --clipboard --path ~/pictures/screenshots
+bindsym Shift+Print exec flameshot full --clipboard --path ~/Pictures/screenshots
 
 # suspend
 bindsym $mod+F1 exec systemctl suspend
@@ -346,6 +346,9 @@ bindsym $mod+v exec CM_HISTLENGTH=12 clipmenu -i -fn "Terminess Nerd Font-13"
 for_window [all] title_format "<b>%title</b>"
 # always use native window frame
 for_window [class="steam"] border normal
+# sticky float for chromium (video call to home)
+for_window [title="^Messenger call"] sticky enable
+
 # don't focus on hover
 focus_follows_mouse no
 # no mouse warp

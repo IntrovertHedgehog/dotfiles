@@ -256,4 +256,12 @@ return {
 		"RRethy/vim-illuminate",
 		lazy = false,
 	},
+	{
+		"timantipov/md-table-tidy.nvim",
+		dev = true,
+		opts = {
+			padding = 1,
+			key = nil,
+		},
+	},
 }

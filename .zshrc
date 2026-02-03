@@ -172,4 +172,6 @@ setopt correct
 bindkey "^[k" up-line-or-beginning-search
 bindkey "^[j" down-line-or-beginning-search
 
+. $HOME/scripts/z/z.sh
+
 # zprof

@@ -5,6 +5,7 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = "\\"
 
+
 -- ui
 o.laststatus = 3
 o.showmode = false

@@ -44,8 +44,8 @@ M.toggle_float = function()
 	local data = D.toggle_float
 	local settings = setting_resolve(S.toggle_float)
 	vim.g.logging = settings
-	if vim.api.nvim_win_is_valid(data.winid) then
-		if vim.api.nvim_buf_is_valid(data.buf) then
+	if not vim.api.nvim_win_is_valid(data.winid) then
+		if not vim.api.nvim_buf_is_valid(data.buf) then
 			data.buf = 0
 		end
 		data.winid = vim.api.nvim_open_win(data.buf, true, settings.win_opts)

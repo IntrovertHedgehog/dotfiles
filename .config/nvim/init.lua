@@ -26,11 +26,14 @@ require("lazy").setup {
 	install = { colorscheme = { "nordic" } },
 	-- automatically check for plugin updates
 	checker = { enabled = false },
+	dev = {
+		path = "~/.local/share/nvim/lazy/", -- to use customized plugins (md-table)
+	},
 }
 
 local scheme_file = io.open(vim.fn.stdpath "data" .. "/colorscheme", "r")
 if scheme_file then
-	local scheme = scheme_file:read("*l")
+	local scheme = scheme_file:read "*l"
 	scheme_file:close()
 	vim.cmd(string.format("colorscheme %s", scheme))
 end

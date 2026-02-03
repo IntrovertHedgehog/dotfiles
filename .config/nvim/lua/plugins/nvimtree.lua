@@ -30,10 +30,6 @@ local options = {
 			},
 		},
 	},
-	git = {
-		enable = false,
-		ignore = true,
-	},
 	filesystem_watchers = {
 		enable = true,
 	},
@@ -82,6 +78,16 @@ local options = {
 					ignored = "◌",
 				},
 			},
+		},
+	},
+	git = {
+		timeout = 3000,
+	},
+	log = {
+		enable = true,
+		truncate = true,
+		types = {
+			git = true,
 		},
 	},
 }
